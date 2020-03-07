@@ -7,6 +7,8 @@ import { plugin } from '../core/umiExports';
 let app = null;
 
 function _onCreate() {
+  if (app) return app
+
   const runtimeZoro = plugin.applyPlugins({
     key: 'zoro',
     type: ApplyPluginsType.modify,
@@ -19,7 +21,15 @@ function _onCreate() {
     app.use(plugin);
   });
   {{{ RegisterModels }}}
-  app.intercept = runtimeZoro.intercept || {}
+  const actions = runtimeZoro.intercept ? (runtimeZoro.intercept.actions || []) : []
+  actions.forEach(action => {
+    app.intercept.action(action)
+  })
+  const effects = runtimeZoro.intercept ? (runtimeZoro.intercept.effects || []) : []
+  effects.forEach(effect => {
+    app.intercept.effect(effect)
+  })
+
   return app;
 }
 

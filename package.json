@@ -1,6 +1,6 @@
 {
   "name": "umi3-plugin-zoro",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "main": "lib/index.js",
   "description": "umi3 plugin for zoro",
   "author": "FaureWu<502556093@qq.com>",

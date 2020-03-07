@@ -40,6 +40,16 @@ export default (api) => {
 
   let hasModels = false;
 
+  // 配置
+  api.describe({
+    key: 'zoro',
+    config: {
+      schema(joi) {
+        return joi.object({});
+      },
+    },
+  });
+
   // 初始检测一遍
   api.onStart(() => {
     hasModels = getAllModels().length > 0;
@@ -80,13 +90,6 @@ app.model({ ...(require('${path}').default) });
         content: Mustache.render(runtimeTpl, {}),
       });
 
-      // exports.ts
-      const exportsTpl = readFileSync(join(__dirname, '../template/exports.tpl'), 'utf-8');
-
-      api.writeTmpFile({
-        path: 'plugin-zoro/exports.ts',
-        content: Mustache.render(exportsTpl, {}),
-      });
     },
     // 要比 preset-built-in 靠前
     // 在内部文件生成之前执行，这样 hasModels 设的值对其他函数才有效
@@ -108,16 +111,4 @@ app.model({ ...(require('${path}').default) });
     hasModels ? [join(api.paths.absTmpPath || '', 'plugin-zoro/runtime.ts')] : [],
   );
   api.addRuntimePluginKey(() => (hasModels ? ['zoro'] : []));
-
-  // 导出内容
-  api.addUmiExports(() =>
-    hasModels
-      ? [
-          {
-            exportAll: true,
-            source: '../plugin-zoro/exports',
-          },
-        ]
-      : [],
-  );
 };
