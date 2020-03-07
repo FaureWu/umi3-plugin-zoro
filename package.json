@@ -1,0 +1,25 @@
+{
+  "name": "umi3-plugin-zoro",
+  "version": "1.0.1",
+  "main": "lib/index.js",
+  "description": "umi3 plugin for zoro",
+  "author": "FaureWu<502556093@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src -d lib",
+    "release": "npm run build && npm publish --access=public"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0"
+  },
+  "dependencies": {
+    "@opcjs/zoro": "^3.0.2",
+    "@opcjs/zoro-plugin": "^3.0.0",
+    "react-redux": "^7.2.0",
+    "umi": "^3.0.4"
+  }
+}
